@@ -1,9 +1,11 @@
 # 线程安全  
-libcurl自称是线程安全，但看网上还是说有踩坑的。  
+libcurl是线程安全，但是你得按要求来使用，不然会踩坑遇到段错误的。  
+可以参照multi_thread.c来写。  
   
 **要点如下：**  
-* 设置CURLOPT_NOSIGNAL为1, `easy_setopt(curl, CURLOPT_NOSIGNAL, (long)1);`  
+* 设置CURLOPT_NOSIGNAL为1, `easy_setopt(curl, CURLOPT_NOSIGNAL, (long)1);`。这点非常重要，这个option的意义是说curl不使用信号来实现  
 * 程序一开始就调用curl_global_init(CURL_GLOBAL_DEFAULT);  
+
 
 # 连接复用
 libcurl 默认就会使用连接复用选项，如果不想使用，可以使用如下两个选项来配置为1。
